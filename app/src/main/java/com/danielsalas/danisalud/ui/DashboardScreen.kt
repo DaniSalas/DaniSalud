@@ -52,8 +52,9 @@ fun DashboardScreen(
                     Spacer(modifier = Modifier.height(4.dp))
                     if (latestBp != null) {
                         val dateStr = DateFormat.format("dd/MM/yyyy HH:mm", Date(latestBp.timestamp)).toString()
+                        val pulseLabel = Localization.get(language, "pulse_short")
                         Text(
-                            text = "${latestBp.systolic} / ${latestBp.diastolic} mmHg (Puls: ${latestBp.pulse})",
+                            text = "${latestBp.systolic} / ${latestBp.diastolic} mmHg ($pulseLabel: ${latestBp.pulse})",
                             style = MaterialTheme.typography.titleLarge
                         )
                         Text(text = dateStr, style = MaterialTheme.typography.labelSmall)

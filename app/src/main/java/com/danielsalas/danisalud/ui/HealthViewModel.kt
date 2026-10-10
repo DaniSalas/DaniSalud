@@ -1,5 +1,8 @@
 package com.danielsalas.danisalud.ui
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.*
 import com.danielsalas.danisalud.data.BloodPressureRecord
 import com.danielsalas.danisalud.data.HealthRepository
@@ -11,7 +14,13 @@ class HealthViewModel(private val repository: HealthRepository) : ViewModel() {
     val allBloodPressureRecords: LiveData<List<BloodPressureRecord>> = repository.allBloodPressureRecords.asLiveData()
     val allWeightRecords: LiveData<List<WeightRecord>> = repository.allWeightRecords.asLiveData()
 
-    fun insertBloodPressure(systolic: Int, diastolic: Int, pulse: Int) {
+    // Temporary scanned OCR state
+    var scannedSystolic by mutableStateOf("")
+    var scannedDiastolic by mutableStateOf("")
+    var scannedPulse by mutableStateOf("")
+    var scannedWeight by mutableStateOf("")
+
+    fun insertBloodPressure(systolic: Float, diastolic: Float, pulse: Int) {
         viewModelScope.launch {
             repository.insertBloodPressure(
                 BloodPressureRecord(
@@ -45,6 +54,13 @@ class HealthViewModel(private val repository: HealthRepository) : ViewModel() {
         viewModelScope.launch {
             repository.deleteWeight(record)
         }
+    }
+
+    fun clearScannedData() {
+        scannedSystolic = ""
+        scannedDiastolic = ""
+        scannedPulse = ""
+        scannedWeight = ""
     }
 }
 

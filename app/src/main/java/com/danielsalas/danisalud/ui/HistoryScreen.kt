@@ -80,6 +80,7 @@ fun HistoryScreen(
 @Composable
 fun BloodPressureItem(record: BloodPressureRecord, onDelete: () -> Unit, language: String) {
     val dateString = DateFormat.format("dd/MM/yyyy HH:mm", Date(record.timestamp)).toString()
+    val pulseLabel = Localization.get(language, "pulse_short")
     Card(modifier = Modifier.fillMaxWidth()) {
         Row(
             modifier = Modifier
@@ -89,7 +90,7 @@ fun BloodPressureItem(record: BloodPressureRecord, onDelete: () -> Unit, languag
         ) {
             Column {
                 Text(text = "${record.systolic} / ${record.diastolic} mmHg", style = MaterialTheme.typography.titleLarge)
-                Text(text = "Puls: ${record.pulse} bpm", style = MaterialTheme.typography.bodyMedium)
+                Text(text = "$pulseLabel: ${record.pulse} bpm", style = MaterialTheme.typography.bodyMedium)
                 Text(text = dateString, style = MaterialTheme.typography.labelSmall)
             }
             TextButton(onClick = onDelete) {
